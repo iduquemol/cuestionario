@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Evaluación Días 7 al 10</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f4f4f4; }
+    h2 { color: #333; }
+    .pregunta { margin-bottom: 20px; background: #fff; padding: 15px; border-radius: 5px; }
+    .correcta { background-color: #c8f7c5; }
+    .incorrecta { background-color: #f7c5c5; }
+    button { padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h2>📝 Evaluación: Días 7 al 10</h2>
+  <form id="quiz">
+    <!-- Preguntas -->
+  </form>
+  <button onclick="evaluar()">Enviar respuestas</button>
+  <p id="resultado"></p>
+
+  <script>
+    const preguntas = [
+      {
+        texto: "¿Qué representa el DOM en una página web?",
+        opciones: ["Una base de datos", "Un lenguaje de programación", "La estructura del documento HTML en forma de árbol", "El sistema de almacenamiento del navegador"],
+        respuesta: 2
+      },
+      {
+        texto: "¿Cuál de los siguientes métodos selecciona un elemento por su id?",
+        opciones: ["querySelectorAll()", "getElementById()", "getElementsByClassName()", "getTagById()"],
+        respuesta: 1
+      },
+      {
+        texto: "¿Qué propiedad se usa para cambiar el contenido de un elemento en el DOM?",
+        opciones: [".inner()", ".textContent", ".content()", ".getText()"],
+        respuesta: 1
+      },
+      {
+        texto: "¿Cuál es el propósito de addEventListener()?",
+        opciones: ["Asignar un evento a un elemento del DOM", "Validar formularios automáticamente", "Ejecutar un alert()", "Crear nuevos elementos en el HTML"],
+        respuesta: 0
+      },
+      {
+        texto: "¿Qué evento se dispara cuando el usuario presiona una tecla?",
+        opciones: ["click", "keyupdown", "keydown", "inputchange"],
+        respuesta: 2
+      },
+      {
+        texto: "¿Qué hace event.preventDefault() en un formulario?",
+        opciones: ["Previene errores de validación", "Reinicia el formulario", "Evita que el formulario se envíe y recargue la página", "Cierra la pestaña automáticamente"],
+        respuesta: 2
+      },
+      {
+        texto: "¿Cuál es la forma correcta de obtener el valor de un campo de texto con id nombre?",
+        opciones: ["document.nombre.value", "document.getElementById(\"nombre\").value", "nombre.value()", "getValue(\"nombre\")"],
+        respuesta: 1
+      },
+      {
+        texto: "¿Cuál es la mejor manera de mostrar un mensaje de error debajo de un campo?",
+        opciones: ["Usar alert()", "Modificar el contenido de un <p> vacío con .textContent", "Escribir directamente en el input", "Cambiar el estilo del formulario"],
+        respuesta: 1
+      },
+      {
+        texto: "¿Qué diferencia hay entre localStorage y sessionStorage?",
+        opciones: ["sessionStorage guarda más datos", "localStorage persiste al cerrar el navegador, sessionStorage no", "localStorage se borra cada 10 minutos", "Son exactamente iguales"],
+        respuesta: 1
+      },
+      {
+        texto: "¿Qué método se usa para guardar un dato en localStorage?",
+        opciones: ["saveData()", "setValue()", "setItem()", "push()"],
+        respuesta: 2
+      },
+      {
+        texto: "¿Qué función transforma un objeto JavaScript en un string para guardarlo en localStorage?",
+        opciones: ["toString()", "JSON.stringify()", "parse()", "convert()"],
+        respuesta: 1
+      },
+      {
+        texto: "¿Qué ocurre si llamas a localStorage.clear()?",
+        opciones: ["Elimina un solo dato", "Borra todos los datos guardados", "Cierra la página", "Limpia la consola"],
+        respuesta: 1
+      }
+    ];
+
+    const form = document.getElementById("quiz");
+    preguntas.forEach((pregunta, i) => {
+      const div = document.createElement("div");
+      div.classList.add("pregunta");
+      div.innerHTML = `<strong>${i + 1}. ${pregunta.texto}</strong><br>`;
+      pregunta.opciones.forEach((op, j) => {
+        div.innerHTML += `<label><input type="radio" name="p${i}" value="${j}"> ${op}</label><br>`;
+      });
+      form.appendChild(div);
+    });
+
+    function evaluar() {
+      let correctas = 0;
+      preguntas.forEach((pregunta, i) => {
+        const radios = document.getElementsByName(`p${i}`);
+        const contenedor = radios[0].closest(".pregunta");
+        let seleccionada = -1;
+        radios.forEach(r => {
+          if (r.checked) seleccionada = parseInt(r.value);
+        });
+        contenedor.classList.remove("correcta", "incorrecta");
+        if (seleccionada === pregunta.respuesta) {
+          contenedor.classList.add("correcta");
+          correctas++;
+        } else {
+          contenedor.classList.add("incorrecta");
+        }
+      });
+      document.getElementById("resultado").textContent = `Obtuviste ${correctas} de ${preguntas.length} respuestas correctas.`;
+    }
+  </script>
+</body>
+</html>
